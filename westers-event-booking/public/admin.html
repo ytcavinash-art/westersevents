@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Westers CRM</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <main class="admin-wrap">
+    <p class="eyebrow">WESTERS CRM</p>
+    <h1 style="font-size:48px">Event Enquiries</h1>
+
+    <section id="loginCard" class="card" style="max-width:480px">
+      <form id="loginForm">
+        <label>Email<input name="email" type="email" required /></label>
+        <label>Password<input name="password" type="password" required /></label>
+        <button class="primary">Login</button>
+      </form>
+    </section>
+
+    <section id="dashboard" class="hidden">
+      <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:20px;">
+        <input id="searchInput" type="text" placeholder="🔍 Search name, phone, email, ID..." style="max-width:300px;" />
+        <select id="statusFilter" style="max-width:180px;">
+          <option value="">All Statuses</option>
+          <option value="NEW">NEW</option>
+          <option value="VERIFIED">VERIFIED</option>
+          <option value="CONTACTED">CONTACTED</option>
+          <option value="MEETING">MEETING</option>
+          <option value="QUOTATION">QUOTATION</option>
+          <option value="NEGOTIATION">NEGOTIATION</option>
+          <option value="APPROVED">APPROVED</option>
+          <option value="ADVANCE_PAID">ADVANCE_PAID</option>
+          <option value="CONFIRMED">CONFIRMED</option>
+          <option value="COMPLETED">COMPLETED</option>
+          <option value="CANCELLED">CANCELLED</option>
+        </select>
+        <button id="exportCsvBtn" class="primary" style="min-width:auto;padding:12px 18px;">📥 Export CSV</button>
+        <button id="refreshLeads" class="secondary">Refresh leads</button>
+        <button id="logout" class="secondary" style="margin-left:auto;">Logout</button>
+      </div>
+      <div id="metrics" class="admin-grid"></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr>
+            <th>Request</th><th>Client</th><th>Event / Venue</th><th>Date</th><th>Phone</th>
+            <th>Budget</th><th>Status</th><th>Deliveries</th><th>Internal Notes</th><th>Created</th>
+          </tr></thead>
+          <tbody id="leadRows"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+<script src="/admin.js"></script>
+</body>
+</html>

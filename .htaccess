@@ -1,0 +1,58 @@
+Options -Indexes
+DirectoryIndex index.html
+
+RewriteEngine On
+
+# Exclude api.westers.in subdomain from main domain redirect rule
+RewriteCond %{HTTP_HOST} ^api\.westers\.in$ [NC]
+RewriteRule ^ - [L]
+
+# Redirect HTTP, www, and the westers.com alias to the canonical domain.
+RewriteCond %{HTTPS} !=on [OR]
+RewriteCond %{HTTP_HOST} !^westers\.in$ [NC]
+RewriteRule ^ https://westers.in%{REQUEST_URI} [R=301,L]
+
+# Redirect explicit .html URLs to clean URLs.
+RewriteCond %{THE_REQUEST} \s/+(.+?)\.html[\s?] [NC]
+RewriteRule ^(.+)\.html$ /$1 [R=301,L,NE]
+RewriteCond %{THE_REQUEST} \s/+index\.html[\s?] [NC]
+RewriteRule ^index\.html$ / [R=301,L]
+
+# Serve existing files and directories normally.
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# Clean public routes.
+RewriteCond %{DOCUMENT_ROOT}/$1.html -f
+RewriteRule ^(.+?)/?$ $1.html [L]
+
+# Admin routes.
+RewriteRule ^admin/?$ admin/login.html [L]
+RewriteRule ^admin/dashboard/?$ admin/dashboard.html [L]
+
+AddType video/mp4 .mp4
+AddType application/javascript .mjs
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/css application/javascript application/json image/svg+xml
+</IfModule>
+
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/png "access plus 30 days"
+  ExpiresByType image/jpeg "access plus 30 days"
+  ExpiresByType image/webp "access plus 30 days"
+  ExpiresByType image/svg+xml "access plus 30 days"
+  ExpiresByType video/mp4 "access plus 30 days"
+  ExpiresByType text/css "access plus 7 days"
+  ExpiresByType application/javascript "access plus 7 days"
+</IfModule>
+
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set X-Frame-Options "SAMEORIGIN"
+</IfModule>
+
+ErrorDocument 404 /index.html

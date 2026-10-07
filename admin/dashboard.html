@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard | WESTERS Admin</title>
+  <link rel="stylesheet" href="../assets/css/admin.css">
+</head>
+<body class="dashboard">
+  <aside class="admin-sidebar">
+    <a class="brand" href="/" aria-label="Westers home">
+      <img src="../assets/logo.png" alt="Westers Media Advertising Events">
+    </a>
+    <div class="sidebar-label">MENU</div>
+    <nav class="sidebar-nav">
+      <button id="sidebarMediaDashboardBtn" class="sidebar-link active" type="button"><span class="nav-icon">▦</span>Dashboard</button>
+      <button id="websiteEditorBtn" class="sidebar-link" type="button"><span class="nav-icon">▤</span>Website Content</button>
+      <button class="sidebar-link sidebar-new-project" type="button"><span class="nav-icon">□</span>Projects</button>
+      <a class="sidebar-link" href="/gallery" target="_blank"><span class="nav-icon">▧</span>Gallery</a>
+      <a class="sidebar-link" href="/videos" target="_blank"><span class="nav-icon">▶</span>Videos</a>
+      <a class="sidebar-link" href="/clients" target="_blank"><span class="nav-icon">◎</span>Clients</a>
+      <a class="sidebar-link" href="/#contact" target="_blank"><span class="nav-icon">✉</span>Contact</a>
+    </nav>
+    <div class="sidebar-label">MANAGE</div>
+    <nav class="sidebar-nav">
+      <a class="sidebar-link" href="/services" target="_blank"><span class="nav-icon">◇</span>Services</a>
+      <a class="sidebar-link" href="/" target="_blank"><span class="nav-icon">↗</span>View Website</a>
+    </nav>
+    <div class="sidebar-bottom">
+      <div class="sidebar-admin"><span class="admin-avatar">W</span><div><strong>Westers Admin</strong><small id="sidebarEmail"></small></div></div>
+    </div>
+  </aside>
+  <header class="topbar">
+    <button id="mobileSidebarBtn" class="mobile-sidebar-btn" type="button" aria-label="Toggle menu">☰</button>
+    <div class="top-view-tabs">
+      <button class="top-view-tab active" type="button"><span>▦</span> Projects</button>
+      <button id="topWebsiteContentBtn" class="top-view-tab" type="button"><span>▤</span> Website Content</button>
+    </div>
+    <div class="top-actions">
+      <button class="top-icon-btn" type="button" aria-label="Notifications">♧</button>
+      <div class="top-admin-profile"><span class="admin-avatar">W</span><div><strong>Westers Admin</strong><small id="userEmail" class="user-email"></small></div></div>
+      <button id="logoutBtn" class="top-icon-btn" aria-label="Logout">⌄</button>
+    </div>
+  </header>
+
+  <main id="mediaDashboard" class="shell">
+    <section class="hero-row">
+      <div>
+        <span class="editor-kicker">OVERVIEW</span>
+        <h1>Dashboard</h1>
+        <p>Manage projects and publish website media from one place.</p>
+      </div>
+      <button id="newProjectBtn" class="btn btn-primary">+ Add Project</button>
+    </section>
+
+    <section class="stats">
+      <div class="stat"><div id="totalProjects" class="n">0</div><div class="label">Total Projects</div></div>
+      <div class="stat"><div id="totalImages" class="n">0</div><div class="label">Images</div></div>
+      <div class="stat"><div id="totalVideos" class="n">0</div><div class="label">Videos</div></div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head">
+        <h2>Projects</h2>
+        <input id="searchProjects" class="search" type="search" placeholder="Search projects…">
+      </div>
+      <div class="project-columns"><span></span><span>PROJECT NAME</span><span>CLIENT</span><span>STATUS</span><span>ACTIONS</span></div>
+      <div id="projectsList" class="projects">
+        <div class="empty">Loading…</div>
+      </div>
+    </section>
+  </main>
+
+  <main id="websiteEditor" class="editor-shell" hidden>
+    <section class="editor-toolbar">
+      <div>
+        <span class="editor-kicker">LIVE WEBSITE CMS</span>
+        <h1>Website Content</h1>
+        <p>Har page aur section ko alag form se manage karein.</p>
+      </div>
+      <div class="editor-actions">
+        <button id="undoEditorBtn" class="btn btn-secondary" disabled>Undo</button>
+        <button id="resetPageBtn" class="btn btn-danger">Reset Page</button>
+        <button id="savePageBtn" class="btn btn-primary">Save Changes</button>
+        <button id="mediaDashboardBtn" class="btn btn-secondary">Media Dashboard</button>
+      </div>
+    </section>
+    <div class="cms-layout">
+      <section class="cms-form-panel">
+        <div class="cms-form-head">
+          <div><span id="cmsPagePath"></span><h2 id="cmsPageTitle">Home Page</h2></div>
+          <div class="cms-head-actions">
+            <label for="cmsPageSelect">Choose Page</label>
+            <select id="cmsPageSelect" aria-label="Choose website page"></select>
+            <a id="cmsOpenPage" class="btn btn-secondary" href="/" target="_blank">Open Page</a>
+          </div>
+        </div>
+        <div id="editorLoading" class="cms-loading">Loading page fields…</div>
+        <form id="cmsFields" class="cms-fields"></form>
+      </section>
+    </div>
+    <input id="editorImageInput" type="file" accept="image/jpeg,image/png,image/webp,image/gif,image/svg+xml" hidden>
+  </main>
+
+  <div id="projectModal" class="modal-backdrop" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-head">
+        <h2 id="modalTitle">Add Project</h2>
+        <button id="closeModalBtn" class="icon-btn">✕</button>
+      </div>
+
+      <form id="projectForm">
+        <div class="modal-body">
+          <input id="projectId" type="hidden">
+
+          <div class="grid-2">
+            <div class="field">
+              <label for="title">Project / Event Name *</label>
+              <input id="title" required placeholder="Adani Corporate Event">
+            </div>
+            <div class="field">
+              <label for="client">Client</label>
+              <input id="client" placeholder="Adani Group">
+            </div>
+            <div class="field">
+              <label for="location">Location</label>
+              <input id="location" placeholder="Ahmedabad">
+            </div>
+            <div class="field">
+              <label for="eventDate">Event Date</label>
+              <input id="eventDate" type="date">
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="description">Description</label>
+            <textarea id="description" placeholder="Brief event description…"></textarea>
+          </div>
+
+          <label class="switch-row">
+            <input id="published" type="checkbox">
+            <span><strong>Published</strong> — show this project on the public website</span>
+          </label>
+
+          <div class="upload-zone">
+            <strong>Upload Images / Videos</strong>
+            <input id="mediaFiles" type="file" multiple accept="image/jpeg,image/png,image/webp,image/gif,video/mp4,video/webm,video/quicktime">
+            <div class="upload-note">
+              Images: JPG, PNG, WebP, GIF. Videos: MP4, WebM, MOV.
+              Files upload after the project is saved.
+            </div>
+          </div>
+
+          <div id="progressWrap" class="progress-wrap">
+            <div class="progress-bar"><span id="progressBar"></span></div>
+            <div id="progressText" class="progress-text">Uploading…</div>
+          </div>
+
+          <div id="mediaGrid" class="media-grid"></div>
+        </div>
+
+        <div class="modal-footer">
+          <button id="cancelBtn" class="btn btn-secondary" type="button">Cancel</button>
+          <button id="saveBtn" class="btn btn-primary" type="submit">Save Project</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="toast" class="toast"></div>
+  <script type="module" src="../assets/js/dashboard.js"></script>
+  <script type="module" src="../assets/js/site-editor.js"></script>
+</body>
+</html>

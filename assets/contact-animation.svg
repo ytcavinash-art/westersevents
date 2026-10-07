@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="180" height="150" viewBox="0 0 180 150">
+  <defs><linearGradient id="brand" x2="1" y2="1"><stop stop-color="#ec08a5"/><stop offset=".5" stop-color="#7934db"/><stop offset="1" stop-color="#087cff"/></linearGradient></defs>
+  <style>
+    .letter { animation: letter 4s ease-in-out infinite; }
+    .bubble { animation: float 4s ease-in-out infinite; }
+    .dot { animation: pulse 1.5s ease-in-out infinite; }
+    .second { animation-delay: .2s; } .third { animation-delay: .4s; }
+    @keyframes letter { 0%,100% { transform: translateY(7px); } 45%,65% { transform: translateY(-5px); } }
+    @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+    @keyframes pulse { 0%,70%,100% { opacity: .4; } 35% { opacity: 1; } }
+    @media (prefers-reduced-motion: reduce) { .letter,.bubble,.dot { animation: none; } }
+  </style>
+  <circle cx="86" cy="76" r="59" fill="#eeebfa"/>
+  <ellipse cx="86" cy="136" rx="51" ry="5" fill="#e5e4f0"/>
+  <path d="m33 73 49-34a9 9 0 0 1 10 0l49 34v48H33Z" fill="#ddd4f5"/>
+  <g class="letter">
+    <rect x="48" y="47" width="77" height="67" rx="7" fill="white" stroke="#dcd6f0"/>
+    <path d="M62 64h32M62 75h49M62 86h37" fill="none" stroke="#b6a2e6" stroke-width="4" stroke-linecap="round"/>
+  </g>
+  <path d="m33 73 54 32 54-32v48a8 8 0 0 1-8 8H41a8 8 0 0 1-8-8Z" fill="url(#brand)"/>
+  <path d="m35 124 37-28m67 28-37-28" fill="none" stroke="white" stroke-opacity=".3" stroke-width="2"/>
+  <g class="bubble">
+    <path d="M111 20h39a10 10 0 0 1 10 10v19a10 10 0 0 1-10 10h-20l-14 10V59h-5a10 10 0 0 1-10-10V30a10 10 0 0 1 10-10Z" fill="white" stroke="#a58ade" stroke-width="2"/>
+    <g fill="#813add"><circle class="dot" cx="117" cy="40" r="3"/><circle class="dot second" cx="130" cy="40" r="3"/><circle class="dot third" cx="143" cy="40" r="3"/></g>
+  </g>
+</svg>

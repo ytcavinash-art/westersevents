@@ -1,0 +1,1 @@
+Place the actual Westers brochure PDF here as westers-brochure.pdf, or set BROCHURE_URL to its real HTTPS URL.

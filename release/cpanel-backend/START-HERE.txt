@@ -1,0 +1,100 @@
+﻿WESTERS BACKEND - CPANEL SETUP
+==============================
+Package prepared locally. It has NOT been uploaded or deployed.
+No real passwords, API keys, customer database or node_modules are included.
+
+1. CPANEL: CREATE THE API DOMAIN
+Create api.westers.in and enable its HTTPS certificate.
+Keep its document root separate from the existing Westers website.
+Do not copy the main site's .htaccess canonical-domain redirect into this subdomain.
+
+2. UPLOAD THE BACKEND
+In File Manager, upload the ZIP to your home directory (outside public_html).
+Extract it. Move the contents of backend/ into /home/YOUR_USER/westers-backend/.
+The app.js and package.json files must be directly inside westers-backend.
+Keep source, database and environment files outside all public document roots.
+
+3. SETUP NODE.JS APP > CREATE APPLICATION
+Node.js version: 24 or newer (required by this build's built-in SQLite).
+Application mode: Production
+Application root: westers-backend
+Application URL: api.westers.in, root path / (no /api suffix)
+Application startup file: app.js
+Create the application and use Run NPM Install.
+If only older Node versions are available, stop and ask the hosting provider for
+Node 24 support. Do not change the version declaration to bypass this requirement.
+
+4. ENVIRONMENT VARIABLES
+Use backend/.env.example as the list of names. Set them in cPanel's environment
+variables UI, or create a private .env in the application root. Fill in real values.
+
+Required to start:
+NODE_ENV=production
+BACKEND_ONLY=true
+BASE_URL=https://api.westers.in
+ALLOWED_ORIGINS=https://westers.in,https://www.westers.in
+DATABASE_PATH=/home/YOUR_USER/westers-data/westers.db
+ADMIN_EMAIL=your admin email
+ADMIN_PASSWORD=a new strong password
+JWT_SECRET=a random secret of at least 32 characters
+
+Generate a secret in the Node application terminal if needed:
+node -e "console.log(require('node:crypto').randomBytes(48).toString('hex'))"
+Store it privately. Do not paste keys into frontend JavaScript or chat.
+The database directory and tables are created automatically at first startup.
+Use persistent local disk, one app process, and arrange database backups.
+
+5. PROVIDERS (ACCOUNTS STILL NEED CONFIGURATION)
+OTP: TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, TWILIO_VERIFY_SERVICE_SID.
+Set Verify Service CODE LENGTH to 4. Email OTP additionally requires SendGrid
+integration in Twilio Verify; SMS and email channels must each be tested.
+Brochure email: RESEND_API_KEY, FROM_EMAIL with verified sending domain.
+BROCHURE_URL: actual public HTTPS PDF URL. Alternatively add the real PDF at
+backend/public/assets/westers-brochure.pdf before uploading.
+WhatsApp: TWILIO_WHATSAPP_FROM and approved TWILIO_WHATSAPP_CONTENT_SID.
+Template variables: 1 client name, 2 request ID, 3 event type.
+Missing service credentials do not produce fake successful delivery.
+
+6. START AND CHECK
+Restart the application in cPanel.
+Open https://api.westers.in/api/health -- it should show JSON with ok:true.
+Open https://api.westers.in/booking-admin -- login using ADMIN_EMAIL/PASSWORD.
+The existing website media/Supabase admin is separate and stays unchanged.
+
+7. CONNECT THE WEBSITE
+Back up the five existing website files listed below. Copy frontend-update/
+contents into the Westers website document root, preserving the directory paths:
+index.html
+script.js
+assets/booking.css
+assets/js/booking.js
+assets/js/booking-config.js
+These are updates to your existing website, not a full website replacement.
+Existing style.css, logo, images and other site assets must remain in place.
+The config file points at https://api.westers.in. If using another API domain,
+change that one URL and ALLOWED_ORIGINS accordingly.
+
+8. VERIFY BEFORE PUBLIC USE
+Test real OTP delivery, wrong code, resend, saved verified lead, brochure email,
+WhatsApp acceptance and admin status updates. Check HTTPS and browser CORS errors.
+Provider accounts and the actual PDF have not yet been supplied, so end-to-end
+live delivery has not been tested. A Node process on this computer cannot deploy
+to your cPanel account without hosting access.
+
+HOST-SPECIFIC NOTES
+The host must support the chosen Node version and one persistent process.
+Passenger can suspend idle processes; the 30-second delivery worker is best-effort
+and resumes with app activity. Arrange a persistent worker with the host if needed.
+Only set TRUST_PROXY_HOPS after confirming proxy topology with the host. A wrong
+value affects rate limiting. Rate limits are per IP; public abuse controls still
+need review (see LIMITATIONS.md). Never enable multiple app workers with this
+SQLite deployment and its startup recovery logic.
+Some hosts require a different binding/PORT or Passenger configuration. Ask the
+host to inspect the app log if health returns 503. Do not expose port 3000 directly.
+
+Official cPanel setup reference:
+https://support.cpanel.net/hc/en-us/articles/1500000004602-How-to-create-a-NodeJS-application-via-CloudLinux
+
+File precedence: this guide describes this ZIP's subdomain deployment. The included
+LIMITATIONS.md describes the implementation and earlier same-origin setup; use the
+subdomain paths above for this package.

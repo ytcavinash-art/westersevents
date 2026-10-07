@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Login | WESTERS</title>
+  <link rel="stylesheet" href="../assets/css/admin.css">
+</head>
+<body class="login-page">
+  <main class="login-card">
+    <a class="brand" href="/" aria-label="Westers home">
+      <img src="../assets/logo.png" alt="Westers Media Advertising Events">
+    </a>
+    <h1>Admin Login</h1>
+    <p>Manage events, photos, videos and published projects from one dashboard.</p>
+
+    <form id="loginForm">
+      <div class="field">
+        <label for="email">Email address</label>
+        <input id="email" type="email" autocomplete="email" required placeholder="admin@westers.in">
+      </div>
+      <div class="field">
+        <label for="password">Password</label>
+        <input id="password" type="password" autocomplete="current-password" required placeholder="••••••••">
+      </div>
+      <button id="loginBtn" class="btn btn-primary full" type="submit">Login to Dashboard</button>
+    </form>
+
+    <div id="message" class="msg"></div>
+  </main>
+
+  <script type="module" src="../assets/js/login.js"></script>
+</body>
+</html>

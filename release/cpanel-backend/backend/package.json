@@ -1,0 +1,22 @@
+{
+  "name": "westers-event-booking",
+  "version": "1.0.0",
+  "description": "Westers Events verified event enquiry + OTP + brochure + WhatsApp + admin dashboard",
+  "main": "app.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node app.js",
+    "test": "node --test test/*.test.mjs"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
+    "resend": "^4.1.2",
+    "twilio": "^5.4.4"
+  },
+  "engines": {
+    "node": ">=24.0.0"
+  }
+}

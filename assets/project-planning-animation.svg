@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="260" height="210" viewBox="0 0 260 210">
+  <defs>
+    <linearGradient id="brand" x2="1" y2="1"><stop stop-color="#eb08a5"/><stop offset=".5" stop-color="#7030dc"/><stop offset="1" stop-color="#13b7d5"/></linearGradient>
+  </defs>
+  <style>
+    .board { animation: hover 5s ease-in-out infinite; }
+    .tick { stroke-dasharray: 22; stroke-dashoffset: 22; animation: check 5s ease-in-out infinite; }
+    .two { animation-delay: .35s; } .three { animation-delay: .7s; }
+    .confirmation { transform-origin: 198px 143px; animation: confirm 5s ease-in-out infinite; }
+    .spark { transform-box: fill-box; transform-origin: center; animation: sparkle 5s ease-in-out infinite; }
+    @keyframes hover { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+    @keyframes check { 0%,10%,100% { stroke-dashoffset: 22; } 28%,82% { stroke-dashoffset: 0; } }
+    @keyframes confirm { 0%,35%,100% { transform: scale(.9); opacity: .45; } 48%,85% { transform: scale(1); opacity: 1; } }
+    @keyframes sparkle { 0%,30%,100% { transform: scale(.7); opacity: .3; } 55%,75% { transform: scale(1); opacity: 1; } }
+    @media (prefers-reduced-motion: reduce) { .board,.tick,.confirmation,.spark { animation: none; } .tick { stroke-dashoffset: 0; } }
+  </style>
+  <circle cx="130" cy="99" r="83" fill="#f7f4ff"/>
+  <circle cx="201" cy="64" r="24" fill="#eefaff"/>
+  <ellipse cx="129" cy="193" rx="69" ry="6" fill="#eeedf6"/>
+  <g class="board">
+    <rect x="66" y="28" width="128" height="150" rx="15" fill="#eae5f6" transform="rotate(-6 130 103)"/>
+    <rect x="65" y="25" width="128" height="150" rx="15" fill="white" stroke="#ddd8ed" stroke-width="1.5"/>
+    <rect x="101" y="18" width="57" height="17" rx="7" fill="url(#brand)"/>
+    <rect x="82" y="49" width="63" height="6" rx="3" fill="#172b4b"/>
+    <rect x="82" y="61" width="89" height="4" rx="2" fill="#e5e1ef"/>
+    <g fill="#f4efff" stroke="#e3d7f6"><rect x="82" y="80" width="19" height="19" rx="5"/><rect x="82" y="110" width="19" height="19" rx="5"/><rect x="82" y="140" width="19" height="19" rx="5"/></g>
+    <g fill="none" stroke="#8739da" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <path class="tick" d="m86 89 4 4 7-8"/><path class="tick two" d="m86 119 4 4 7-8"/><path class="tick three" d="m86 149 4 4 7-8"/>
+    </g>
+    <g fill="#beb2d7"><rect x="111" y="83" width="56" height="5" rx="2.5"/><rect x="111" y="113" width="44" height="5" rx="2.5"/><rect x="111" y="143" width="49" height="5" rx="2.5"/></g>
+    <g fill="#ece8f3"><rect x="111" y="93" width="39" height="3" rx="1.5"/><rect x="111" y="123" width="57" height="3" rx="1.5"/><rect x="111" y="153" width="31" height="3" rx="1.5"/></g>
+  </g>
+  <g class="confirmation"><circle cx="198" cy="143" r="27" fill="url(#brand)" stroke="white" stroke-width="5"/><path d="m187 143 7 7 15-16" fill="none" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></g>
+  <path class="spark" d="M40 75v12m-6-6h12" stroke="#dc27ad" stroke-width="2.5" stroke-linecap="round"/>
+  <path class="spark" d="M215 91v10m-5-5h10" stroke="#1389e9" stroke-width="2.5" stroke-linecap="round"/>
+  <circle class="spark" cx="44" cy="143" r="4" fill="#baa1ec"/>
+</svg>

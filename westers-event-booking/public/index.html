@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Book Your Event | WESTERS Events</title>
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="topbar">
+    <a href="/" class="brand">WESTERS</a>
+    <span>EVENT BOOKING & ENQUIRY</span>
+  </header>
+
+  <main class="wrap">
+    <div class="hero">
+      <p class="eyebrow">PLAN YOUR EVENT</p>
+      <h1>Let's Create Something Extraordinary.</h1>
+      <p class="lead">Submit your event requirements below. We'll verify your contact details instantly via OTP and send our comprehensive brochure & quote options.</p>
+    </div>
+
+    <section class="card">
+      <div class="steps">
+        <div class="step active" data-step="1"><b>1</b><span>Event Details</span></div>
+        <div class="line"></div>
+        <div class="step" data-step="2"><b>2</b><span>Verify OTP</span></div>
+        <div class="line"></div>
+        <div class="step" data-step="3"><b>3</b><span>Confirmed</span></div>
+      </div>
+
+      <div id="alert" class="alert hidden"></div>
+
+      <!-- STEP 1: ENQUIRY FORM -->
+      <form id="bookingForm" class="panel">
+        <div class="grid">
+          <label>Full Name *
+            <input name="name" type="text" placeholder="e.g. Rahul Sharma" required />
+          </label>
+
+          <label>Company / Organization
+            <input name="company" type="text" placeholder="e.g. Acro Corp Pvt Ltd" />
+          </label>
+
+          <label>Mobile Number *
+            <input name="phone" type="tel" placeholder="+91 98765 43210" required />
+          </label>
+
+          <label>Email Address *
+            <input name="email" type="email" placeholder="rahul@example.com" required />
+          </label>
+
+          <label>Event Type *
+            <select name="eventType" required>
+              <option value="">Select Event Type</option>
+              <option value="Corporate Events">Corporate Events & Conferences</option>
+              <option value="Exhibitions & Launches">Exhibitions & Product Launches</option>
+              <option value="Brand Activations">Brand Activations & BTL</option>
+              <option value="Sports Events">Sports Events & Tournaments</option>
+              <option value="Media Production">Media & Film Production</option>
+              <option value="Education Events">Education & Campus Events</option>
+              <option value="Celebrations">Celebrations & Special Events</option>
+            </select>
+          </label>
+
+          <label>Venue Type Preference
+            <select name="venueType">
+              <option value="">Select Venue Preference</option>
+              <option value="Indoor Arena / Convention Hall">Indoor Arena / Convention Hall</option>
+              <option value="Outdoor Ground / Stadium / Lawn">Outdoor Ground / Stadium / Lawn</option>
+              <option value="Hotel Ballroom / Luxury Resort">Hotel Ballroom / Luxury Resort</option>
+              <option value="Hybrid / Venue TBD">Hybrid / Venue TBD</option>
+            </select>
+          </label>
+
+          <label>Preferred Event Date
+            <input name="eventDate" type="date" />
+          </label>
+
+          <label>Expected Guests
+            <input name="guests" type="number" placeholder="e.g. 250" min="1" max="100000" />
+          </label>
+
+          <label>Event Location / City
+            <input name="location" type="text" placeholder="e.g. Mumbai, Goa, Delhi" />
+          </label>
+
+          <label>Estimated Budget
+            <select name="budget">
+              <option value="">Select Budget Range</option>
+              <option value="₹1L - ₹5L">₹1L - ₹5L</option>
+              <option value="₹5L - ₹15L">₹5L - ₹15L</option>
+              <option value="₹15L - ₹50L">₹15L - ₹50L</option>
+              <option value="₹50L+">₹50L+</option>
+            </select>
+          </label>
+
+          <label>Verification Method *
+            <select name="verifyChannel" required>
+              <option value="sms">SMS OTP (Mobile)</option>
+              <option value="email">Email OTP</option>
+            </select>
+          </label>
+
+          <label style="grid-column: 1 / -1;">Event Details & Special Requirements
+            <textarea name="details" rows="4" placeholder="Tell us more about your event concept, venue preferences, staging, tech requirements..."></textarea>
+          </label>
+
+          <label class="consent" style="grid-column: 1 / -1;">
+            <input type="checkbox" name="consent" value="yes" required checked />
+            <span>I agree to receive event proposals, brochures & OTP verification updates from WESTERS Events.</span>
+          </label>
+
+          <div style="grid-column: 1 / -1; margin-top: 10px;">
+            <button type="submit" class="primary">Continue & Verify OTP</button>
+          </div>
+        </div>
+      </form>
+
+      <!-- STEP 2: OTP PANEL -->
+      <div id="otpPanel" class="panel hidden">
+        <h2>Enter Verification Code</h2>
+        <p id="otpText" class="muted">Verification code sent to your phone/email.</p>
+        <form id="otpForm" style="margin-top: 20px;">
+          <label>4-Digit OTP Code
+            <input id="otpCode" type="text" class="otp" maxlength="4" placeholder="••••" required autocomplete="one-time-code" />
+          </label>
+          <div style="margin-top: 20px;">
+            <button type="submit" class="primary">Verify & Submit Requirement</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- STEP 3: SUCCESS PANEL -->
+      <div id="successPanel" class="success hidden">
+        <div class="tick">✓</div>
+        <h2>Enquiry Verified & Submitted!</h2>
+        <p class="muted">Thank you for reaching out to WESTERS Events. Your requirement has been registered and assigned to an event producer.</p>
+        <div class="request-box">
+          <span>YOUR WESTERS REFERENCE ID</span>
+          <strong id="requestIdText">WE-2026-XXXX</strong>
+        </div>
+        <div style="margin-top: 24px;">
+          <a href="/" class="secondary">Return to Homepage</a>
+        </div>
+      </div>
+    </section>
+
+    <div class="trust-grid">
+      <article>
+        <b>01</b>
+        <h3>Instant Confirmation</h3>
+        <p>Get a unique Westers Request ID immediately upon OTP verification.</p>
+      </article>
+      <article>
+        <b>02</b>
+        <h3>Brochure & Quotes</h3>
+        <p>Automated email brochure dispatch with customized rate card options.</p>
+      </article>
+      <article>
+        <b>03</b>
+        <h3>Dedicated Producer</h3>
+        <p>An assigned event director will contact you to discuss concepts & execution.</p>
+      </article>
+    </div>
+  </main>
+
+  <script src="/app.js"></script>
+</body>
+</html>
