@@ -315,6 +315,6 @@ app.get("*", (req, res) => {
 
 db.prepare("UPDATE deliveries SET status='uncertain' WHERE status='sending'").run();
 setInterval(() => { void processDeliveries(db, {email:sendBrochureEmail, whatsapp:sendWhatsAppFollowup}); }, 30000).unref();
-app.listen(PORT, process.env.HOST || "127.0.0.1", () => {
-  console.log(`Westers booking system running on http://localhost:${PORT}`);
+app.listen(PORT, process.env.HOST || "0.0.0.0", () => {
+  console.log(`Westers booking system running on port ${PORT}`);
 });
